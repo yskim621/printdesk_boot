@@ -1,0 +1,17 @@
+jwt:
+  token:
+    secret-key: ABCDEFGHIJKLMNOPQRSTUVWXYZ
+    expire-length: 60000
+
+spring:
+  security:
+    oauth2:
+      client:
+        registration:
+          google.client-id: 406544707711-f7rip68a347ea00oto7fs5kc9ra6hgr1.apps.googleusercontent.com
+          google.client-secret: ErYnlmGltfdmBway0xm-nF5J
+          google.scope: email
+
+salt-size: 8
+hash-interations: 1024
+company-tryday-num: 15

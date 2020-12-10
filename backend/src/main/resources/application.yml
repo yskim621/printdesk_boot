@@ -1,0 +1,44 @@
+spring:
+  profiles:
+    active: dev
+    include: oauth
+
+---
+
+spring:
+  profiles: dev
+
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/print2?serverTimezone=Asia/Seoul
+    username: root
+    password: tlsgudtjq1!
+
+  jpa:
+    open-in-view: false
+    show-sql: true
+    generate-ddl: true
+    hibernate:
+      ddl-auto: update
+
+server:
+  port: 8081
+
+---
+
+spring:
+  profiles: prod
+
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/print2?serverTimezone=Asia/Seoul
+    username: root
+    password: tlsgudtjq1!
+
+  jpa:
+    open-in-view: false
+    show-sql: true
+    generate-ddl: true
+
+server:
+  port: 8082
