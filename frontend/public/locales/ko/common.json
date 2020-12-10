@@ -1,0 +1,8 @@
+{
+  "greeting": "안녕하세요",
+  "forgot-password-question": "비밀번호를 잊으셨나요?",
+  "login-error-password-empty": "비밀번호를 입력해주세요",
+  "login-error-password-length": "6글자 이상 입력해주세요",
+  "login-error-id-empty": "아이디를 입력해주세요",
+  "login-error-invalid-id-pw": "아이디 또는 비밀번호를 다시 확인해주세요."
+}

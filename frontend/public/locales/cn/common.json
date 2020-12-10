@@ -1,0 +1,8 @@
+{
+  "greeting": "你好",
+  "forgot-password-question": "Forget password?",
+  "login-error-password-empty": "Please enter your password",
+  "login-error-password-length": "Value must be longer than 6 characters",
+  "login-error-id-empty": "Please enter your ID",
+  "login-error-invalid-id-pw": "ID and password are invalid. Please enter correct ID and password"
+}

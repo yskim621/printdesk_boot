@@ -1,0 +1,16 @@
+const CHECK_ID = 'printdesk/CHECK_ID';
+const CHECK_ID_SUCCESS = 'printdesk/CHECK_ID_SUCCESS';
+const CHECK_ID_ERROR = 'printdesk/CHECK_ID_ERROR';
+
+const REGISTER = 'printdesk/REGISTER';
+const REGISTER_SUCCESS = 'printdesk/REGISTER_SUCCESS';
+const REGISTER_ERROR = 'printdesk/REGISTER_ERROR';
+
+export {
+  CHECK_ID,
+  CHECK_ID_SUCCESS,
+  CHECK_ID_ERROR,
+  REGISTER,
+  REGISTER_SUCCESS,
+  REGISTER_ERROR,
+};
