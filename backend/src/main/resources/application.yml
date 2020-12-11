@@ -6,13 +6,11 @@ spring:
 ---
 
 spring:
-  profiles: dev
-
   datasource:
-    driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://localhost:3306/print2?serverTimezone=Asia/Seoul
-    username: root
-    password: tlsgudtjq1!
+    driver-class-name: org.mariadb.jdbc.Driver
+    url: jdbc:mariadb://pworks.myds.me:3001/printdesk_dev
+    username: hsshin
+    password: 212224
 
   jpa:
     open-in-view: false
@@ -20,6 +18,9 @@ spring:
     generate-ddl: true
     hibernate:
       ddl-auto: update
+  config:
+    activate:
+      on-profile: dev
 
 server:
   port: 8081
@@ -27,8 +28,6 @@ server:
 ---
 
 spring:
-  profiles: prod
-
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
     url: jdbc:mysql://localhost:3306/print2?serverTimezone=Asia/Seoul
@@ -39,6 +38,9 @@ spring:
     open-in-view: false
     show-sql: true
     generate-ddl: true
+  config:
+    activate:
+      on-profile: prod
 
 server:
   port: 8082

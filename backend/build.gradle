@@ -57,7 +57,8 @@ dependencies {
 //    implementation 'org.springframework.boot:spring-boot-starter-security'
 //    testImplementation 'org.springframework.security:spring-security-test'
 
-    runtimeOnly 'mysql:mysql-connector-java'
+    implementation 'org.mariadb.jdbc:mariadb-java-client:2.4.1'
+//    runtimeOnly 'mysql:mysql-connector-java'
 
     providedRuntime 'org.springframework.boot:spring-boot-starter-tomcat'
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
