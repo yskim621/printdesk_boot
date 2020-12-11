@@ -11,6 +11,10 @@ import { MenuIcon, MobileMenuIcon } from '../../../components/svg';
 import Notifications from './Notifications';
 import { i18n, withTranslation } from '../../../i18n';
 
+import koFlag from '../../../../public/assets/img/flags/korea.jpg';
+import usFlag from '../../../../public/assets/img/flags/us.jpg';
+import cnFlag from '../../../../public/assets/img/flags/china.jpg';
+
 const Navbar = ({ t }) => {
   const [language, setLanguage] = useState('ko');
 
@@ -40,12 +44,15 @@ const Navbar = ({ t }) => {
             </DropdownToggle>
             <DropdownMenu className="mt-3" right>
               <DropdownItem onClick={() => setLanguage('ko')}>
+                <img src={koFlag} alt="flag" height="16" className="mr-1" />
                 {t('korean')}
               </DropdownItem>
               <DropdownItem onClick={() => setLanguage('cn')}>
+                <img src={cnFlag} alt="flag" height="16" className="mr-1" />
                 {t('chinese')}
               </DropdownItem>
               <DropdownItem onClick={() => setLanguage('en')}>
+                <img src={usFlag} alt="flag" height="16" className="mr-1" />
                 {t('english')}
               </DropdownItem>
             </DropdownMenu>
