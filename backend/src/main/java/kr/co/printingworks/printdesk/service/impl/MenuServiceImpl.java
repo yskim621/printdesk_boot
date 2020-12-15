@@ -1,11 +1,14 @@
 package kr.co.printingworks.printdesk.service.impl;
 
+import com.querydsl.core.types.ExpressionUtils;
+import com.querydsl.jpa.JPAExpressions;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import kr.co.printingworks.printdesk.dto.MenuTestDto;
 import kr.co.printingworks.printdesk.dto.UserDto;
 import kr.co.printingworks.printdesk.entity.Menu;
 import kr.co.printingworks.printdesk.entity.MenuTest;
 import kr.co.printingworks.printdesk.entity.QMenuTest;
+import kr.co.printingworks.printdesk.enumerate.PermissionType;
 import kr.co.printingworks.printdesk.mapper.MenuTestMapper;
 import kr.co.printingworks.printdesk.repo.MenuTestRepository;
 import kr.co.printingworks.printdesk.service.MenuService;
@@ -41,9 +44,8 @@ public class MenuServiceImpl implements MenuService {
                 .leftJoin(children).on(children.parent.eq(parent))
                 .where(parent.parent.isNull())
                 .groupBy(parent)
+                .orderBy(parent.sort.asc())
                 .fetch();
-
-//        System.out.println(list);
 
         List<MenuTestDto> menuList = new ArrayList<>();
 

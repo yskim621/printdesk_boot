@@ -30,6 +30,7 @@ public class SelfJoinQueryTest {
                 .leftJoin(children).on(children.parent.eq(parent))
                 .where(parent.parent.isNull())
                 .groupBy(parent)
+                .orderBy(parent.sort.asc(), children.sort.asc())
                 .fetch();
 
         System.out.println(list);

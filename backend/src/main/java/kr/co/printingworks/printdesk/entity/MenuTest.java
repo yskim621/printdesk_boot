@@ -1,5 +1,6 @@
 package kr.co.printingworks.printdesk.entity;
 
+import kr.co.printingworks.printdesk.enumerate.PermissionType;
 import lombok.*;
 
 import javax.persistence.*;
@@ -24,5 +25,11 @@ public class MenuTest {
     private MenuTest parent;
 
     @OneToMany(mappedBy = "parent", cascade = CascadeType.ALL)
+    @OrderBy("sort asc")
     private List<MenuTest> children;
+
+    private int sort;
+
+    @Enumerated(EnumType.STRING)
+    private PermissionType type;
 }
