@@ -2,7 +2,7 @@ package kr.co.printingworks.printdesk.controller;
 
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
-import kr.co.printingworks.printdesk.dto.MenuTestDto;
+import kr.co.printingworks.printdesk.dto.MenuDto;
 import kr.co.printingworks.printdesk.service.MenuService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -21,7 +21,7 @@ public class DashboardController {
 
     @ApiOperation(value = "get menu list")
     @PostMapping("menu")
-    public ResponseEntity<List<MenuTestDto>> getMenuTest() {
-        return ResponseEntity.ok(menuService.getMenuTest());
+    public ResponseEntity<List<MenuDto>> getMenuTest() {
+        return ResponseEntity.ok(menuService.getMenu());
     }
 }

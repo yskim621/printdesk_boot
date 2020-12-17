@@ -1,16 +1,11 @@
 package kr.co.printingworks.printdesk.service.impl;
 
-import com.querydsl.core.types.ExpressionUtils;
-import com.querydsl.jpa.JPAExpressions;
 import com.querydsl.jpa.impl.JPAQueryFactory;
-import kr.co.printingworks.printdesk.dto.MenuTestDto;
-import kr.co.printingworks.printdesk.dto.UserDto;
+import kr.co.printingworks.printdesk.dto.MenuDto;
 import kr.co.printingworks.printdesk.entity.Menu;
-import kr.co.printingworks.printdesk.entity.MenuTest;
-import kr.co.printingworks.printdesk.entity.QMenuTest;
+import kr.co.printingworks.printdesk.entity.QMenu;
 import kr.co.printingworks.printdesk.enumerate.PermissionType;
-import kr.co.printingworks.printdesk.mapper.MenuTestMapper;
-import kr.co.printingworks.printdesk.repo.MenuTestRepository;
+import kr.co.printingworks.printdesk.mapper.MenuMapper;
 import kr.co.printingworks.printdesk.service.MenuService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -23,39 +18,26 @@ import java.util.List;
 public class MenuServiceImpl implements MenuService {
     @Autowired
     JPAQueryFactory jpaQueryFactory;
+    private static final QMenu Q_MENU = QMenu.menu;
 
-    @Autowired
-    MenuTestRepository menuTestRepository;
-
-    @Override
-    @Transactional
-    public List<Menu> getMenu(UserDto userDto) {
-        return new ArrayList<>();
-    }
 
     @Override
     @Transactional
-    public List<MenuTestDto> getMenuTest() {
-        QMenuTest parent = QMenuTest.menuTest;
-        QMenuTest children = new QMenuTest("children");
-
-        List<MenuTest> list = jpaQueryFactory
-                .selectFrom(parent)
-                .leftJoin(children).on(children.parent.eq(parent))
-                .where(parent.parent.isNull())
-                .groupBy(parent)
-                .orderBy(parent.sort.asc())
+    public List<MenuDto> getMenu() {
+        List<Menu> menuList = jpaQueryFactory
+                .selectFrom(Q_MENU)
+                .where(Q_MENU.parent.isNull(), Q_MENU.type.eq(PermissionType.MENU))
+                .groupBy(Q_MENU)
+                .orderBy(Q_MENU.sort.asc())
                 .fetch();
 
-        List<MenuTestDto> menuList = new ArrayList<>();
+        List<MenuDto> menuDtoList = new ArrayList<>();
 
-        for (MenuTest entity : list) {
-            MenuTestDto dto = MenuTestMapper.INSTANCE.toDto(entity);
-            menuList.add(dto);
+        for (Menu entity : menuList) {
+            MenuDto dto = MenuMapper.INSTANCE.toDto(entity);
+            menuDtoList.add(dto);
         }
 
-        System.out.println(menuList);
-
-        return menuList;
+        return menuDtoList;
     }
 }

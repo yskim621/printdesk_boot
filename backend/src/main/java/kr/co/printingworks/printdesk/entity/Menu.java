@@ -1,8 +1,10 @@
 package kr.co.printingworks.printdesk.entity;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
 import kr.co.printingworks.printdesk.enumerate.BoolValue;
 import kr.co.printingworks.printdesk.enumerate.PermissionType;
 import lombok.*;
+import org.hibernate.annotations.Where;
 
 import javax.persistence.*;
 import java.util.List;
@@ -27,6 +29,7 @@ public class Menu extends AbstractEntity {
 
     private String url;
     private String icon;
+    private String newIcon;
     private Integer sort;
 
     @Enumerated(EnumType.STRING)
@@ -39,9 +42,13 @@ public class Menu extends AbstractEntity {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "parent_id")
+    @JsonInclude(JsonInclude.Include.NON_EMPTY)
     private Menu parent;
 
-    @OneToMany(mappedBy = "parent")
+    @OneToMany(mappedBy = "parent", cascade = CascadeType.ALL)
+    @Where(clause = "type='MENU'")
+    @OrderBy("sort asc")
+    @JsonInclude(JsonInclude.Include.NON_EMPTY)
     private List<Menu> children;
 
     @Override

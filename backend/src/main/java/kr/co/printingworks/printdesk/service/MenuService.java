@@ -1,12 +1,10 @@
 package kr.co.printingworks.printdesk.service;
 
-import kr.co.printingworks.printdesk.dto.MenuTestDto;
-import kr.co.printingworks.printdesk.dto.UserDto;
-import kr.co.printingworks.printdesk.entity.Menu;
+import kr.co.printingworks.printdesk.dto.MenuDto;
 
 import java.util.List;
 
 public interface MenuService {
-    List<Menu> getMenu(UserDto userDto);
-    List<MenuTestDto> getMenuTest();
+    // TODO: 파라미터로 user 추가해줘야됨.
+    List<MenuDto> getMenu();
 }
