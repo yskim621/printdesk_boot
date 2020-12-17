@@ -12,8 +12,7 @@ export const initialState = {
   loading: false,
   error: null,
   id: '',
-  password: '',
-  email: '',
+  form: {},
   validId: false,
 };
 
@@ -32,14 +31,14 @@ const registerReducer = (state = initialState, action) =>
         break;
       case REGISTER:
         draft.loading = true;
-        draft.id = action.payload.id;
-        draft.email = action.payload.email;
-        draft.password = action.payload.password;
+        draft.form = action.payload;
         break;
       case REGISTER_SUCCESS:
         draft.loading = false;
         draft.error = null;
+        draft.id = '';
         draft.validId = false;
+        draft.form = {};
         break;
       case REGISTER_ERROR:
         draft.loading = false;

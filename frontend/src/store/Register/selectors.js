@@ -8,18 +8,15 @@ const loadingSelector = () =>
 const errorSelector = () =>
   createSelector(registerSelector, (state) => state.error);
 const idSelector = () => createSelector(registerSelector, (state) => state.id);
-const emailSelector = () =>
-  createSelector(registerSelector, (state) => state.email);
-const passwordSelector = () =>
-  createSelector(registerSelector, (state) => state.password);
 const validIdSelector = () =>
   createSelector(registerSelector, (state) => state.validId);
+const formSelector = () =>
+  createSelector(registerSelector, (state) => state.form);
 
 export {
   loadingSelector,
   errorSelector,
   idSelector,
-  emailSelector,
-  passwordSelector,
   validIdSelector,
+  formSelector,
 };

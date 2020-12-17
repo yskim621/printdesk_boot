@@ -7,7 +7,7 @@ import {
   registerSuccessAction,
   registerErrorAction,
 } from './actions';
-import { idSelector, passwordSelector, emailSelector } from './selectors';
+import { idSelector, formSelector } from './selectors';
 import { checkIdRequest, registerRequest } from './requests';
 
 function* checkId() {
@@ -22,14 +22,14 @@ function* checkId() {
 }
 
 function* register() {
-  const id = yield select(idSelector());
-  const email = yield select(emailSelector());
-  const password = yield select(passwordSelector());
+  const form = yield select(formSelector());
 
   try {
-    yield call(registerRequest, id, email, password);
+    yield call(registerRequest, form);
     yield put(registerSuccessAction());
-    Router.push('/register/init');
+    setTimeout(() => {
+      Router.push('/login');
+    }, 3000);
   } catch (error) {
     yield put(registerErrorAction(error));
   }
