@@ -37,7 +37,8 @@
       "react/prop-types": 0,
       "prettier/prettier": ["error"],
       "react/react-in-jsx-scope": "off",
-      "no-param-reassign": ["error", { "props": true, "ignorePropertyModificationsFor": ["draft"] }]
+      "no-param-reassign": ["error", { "props": true, "ignorePropertyModificationsFor": ["draft"] }],
+      "jsx-a11y/anchor-is-valid": 0
     },
     "globals": {
       "window": true,
