@@ -139,8 +139,6 @@ class Sidebar extends Component {
   };
 
   setSelectedLiActive = (callback) => {
-    const { selectedParentMenu } = this.state;
-
     const oldli = document.querySelector('.sub-menu  li.active');
     if (oldli != null) {
       oldli.classList.remove('active');
@@ -180,48 +178,6 @@ class Sidebar extends Component {
         callback
       );
     }
-
-    // const selectedSublink = document.querySelector(
-    //   '.third-level-menu  a.active'
-    // );
-    // if (selectedSublink != null) {
-    //   selectedSublink.parentElement.classList.add('active');
-    // }
-    //
-    // const selectedlink = document.querySelector('.sub-menu  a.active');
-    // if (selectedlink != null) {
-    //   selectedlink.parentElement.classList.add('active');
-    //   this.setState(
-    //     {
-    //       selectedParentMenu: selectedlink.parentElement.parentElement.getAttribute(
-    //         'data-parent'
-    //       ),
-    //     },
-    //     callback
-    //   );
-    // } else {
-    //   const selectedParentNoSubItem = document.querySelector(
-    //     '.main-menu  li a.active'
-    //   );
-    //   if (selectedParentNoSubItem != null) {
-    //     this.setState(
-    //       {
-    //         selectedParentMenu: selectedParentNoSubItem.getAttribute(
-    //           'data-flag'
-    //         ),
-    //       },
-    //       callback
-    //     );
-    //   } else if (selectedParentMenu === '') {
-    //     const { menuItems } = this.props;
-    //     this.setState(
-    //       {
-    //         selectedParentMenu: menuItems[0].id,
-    //       },
-    //       callback
-    //     );
-    //   }
-    // }
   };
 
   handleDocumentClick = (e) => {
