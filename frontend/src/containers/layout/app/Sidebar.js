@@ -385,7 +385,7 @@ class Sidebar extends Component {
                     key={item.id}
                     className={classnames({
                       'd-block':
-                        (selectedParentMenu === item.id &&
+                        (selectedParentMenu * 1 === item.id &&
                           viewingParentMenu === '') ||
                         viewingParentMenu === item.id,
                     })}
