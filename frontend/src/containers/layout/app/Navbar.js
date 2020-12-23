@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
 import Link from 'next/link';
 import {
   UncontrolledDropdown,
@@ -6,6 +7,16 @@ import {
   DropdownMenu,
   DropdownItem,
 } from 'reactstrap';
+
+import {
+  containerClassnamesSelector,
+  menuClickCountSelector,
+  selectedMenuHasSubItemsSelector,
+} from '../../../store/Layout/selectors';
+import {
+  setContainerClassnamesAction,
+  clickOnMobileMenuAction,
+} from '../../../store/Layout/actions';
 
 import { MenuIcon, MobileMenuIcon } from '../../../components/svg';
 import Notifications from './Notifications';
@@ -16,19 +27,73 @@ import usFlag from '../../../../public/assets/img/flags/us.jpg';
 import cnFlag from '../../../../public/assets/img/flags/china.jpg';
 
 const Navbar = ({ t }) => {
+  const dispatch = useDispatch();
   const [language, setLanguage] = useState('ko');
+  const clickOnMobileMenu = (containerClassnames) => {
+    dispatch(clickOnMobileMenuAction(containerClassnames));
+  };
+  const containerClassnames = useSelector(containerClassnamesSelector());
+  const menuClickCount = useSelector(menuClickCountSelector());
+  const setContainerClassnames = (
+    clickIndex,
+    strCurrentClasses,
+    selectedMenuHasSubItems
+  ) => {
+    dispatch(
+      setContainerClassnamesAction(
+        clickIndex,
+        strCurrentClasses,
+        selectedMenuHasSubItems
+      )
+    );
+  };
+  const selectedMenuHasSubItems = useSelector(
+    selectedMenuHasSubItemsSelector()
+  );
 
   useEffect(() => {
     i18n.changeLanguage(language);
   }, [language]);
 
+  const menuButtonClick = (e, _clickCount, _conClassnames) => {
+    e.preventDefault();
+
+    setTimeout(() => {
+      const event = document.createEvent('HTMLEvents');
+      event.initEvent('resize', false, false);
+      window.dispatchEvent(event);
+    }, 350);
+    setContainerClassnames(
+      _clickCount + 1,
+      _conClassnames,
+      selectedMenuHasSubItems
+    );
+  };
+
+  const mobileMenuButtonClick = (e, _containerClassnames) => {
+    e.preventDefault();
+    clickOnMobileMenu(_containerClassnames);
+  };
+
   return (
     <nav className="navbar fixed-top">
       <div className="d-flex align-items-center navbar-left">
-        <a className="menu-button d-none d-md-block">
+        <a
+          className="menu-button d-none d-md-block"
+          onClick={(e) =>
+            menuButtonClick(e, menuClickCount, containerClassnames)
+          }
+          style={{ cursor: 'pointer' }}
+          aria-hidden
+        >
           <MenuIcon />
         </a>
-        <a className="menu-button-mobile d-xs-block d-sm-block d-md-none">
+        <a
+          className="menu-button-mobile d-xs-block d-sm-block d-md-none"
+          onClick={(e) => mobileMenuButtonClick(e, containerClassnames)}
+          style={{ cursor: 'pointer' }}
+          aria-hidden
+        >
           <MobileMenuIcon />
         </a>
 

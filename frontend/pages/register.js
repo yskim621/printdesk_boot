@@ -16,7 +16,6 @@ import {
 } from 'reactstrap';
 import { Steps, Step } from 'react-albus';
 
-import UserLayout from '../src/containers/layout/user';
 import { Colxx } from '../src/components/common/CustomBootstrap';
 import TopNavigation from '../src/components/TopNavigation';
 import BottomNavigation from '../src/components/BottomNavigation';
@@ -219,211 +218,209 @@ const Register = () => {
   };
 
   return (
-    <UserLayout>
-      <Row className="h-100">
-        <Colxx xxx="12" md="10" className="mx-auto my-auto">
-          <Card className="auth-card">
-            <div className="position-relative image-side">
-              <p className="text-white h2">MAGIC IS IN THE DETAILS</p>
-              <p className="white mb-0">
-                Please use this form to register. <br />
-                If you are a member, please{' '}
-                <Link href="/login">
-                  <a className="white">login</a>
-                </Link>
-                .
-              </p>
-            </div>
+    <Row className="h-100">
+      <Colxx xxx="12" md="10" className="mx-auto my-auto">
+        <Card className="auth-card">
+          <div className="position-relative image-side">
+            <p className="text-white h2">MAGIC IS IN THE DETAILS</p>
+            <p className="white mb-0">
+              Please use this form to register. <br />
+              If you are a member, please{' '}
+              <Link href="/login">
+                <a className="white">login</a>
+              </Link>
+              .
+            </p>
+          </div>
 
-            <div className="form-side">
-              <CardTitle className="mb-4">Register</CardTitle>
+          <div className="form-side">
+            <CardTitle className="mb-4">Register</CardTitle>
 
-              <CardBody className="wizard wizard-default">
-                <Wizard>
-                  <TopNavigation
-                    className="justify-content-center"
-                    disableNav
-                  />
-                  <Steps>
-                    {/* TODO: 항목 추가/삭제 및 이메일 중복체크 추가여부 검토 */}
-                    <Step id="step1" name="기본정보" desc="">
-                      <ReactstrapForm className="av-tooltip tooltip-label-bottom">
-                        <FormGroup className="form-group has-float-label mb-4">
-                          <Label>ID</Label>
-                          <Input
-                            type="text"
-                            value={id}
-                            onChange={(e) => setId(e.target.value)}
-                            onFocus={() => setIdFocus(true)}
-                          />
-                          {idErrorMessage && (
-                            <div className="invalid-feedback d-block">
-                              {idErrorMessage}
-                            </div>
-                          )}
-                        </FormGroup>
-
-                        <FormGroup className="form-group has-float-label mb-4">
-                          <Label>E-mail</Label>
-                          <Input
-                            type="email"
-                            value={email}
-                            onChange={(e) => setEmail(e.target.value)}
-                            onFocus={() => setEmailFocus(true)}
-                          />
-                          {emailErrorMessage && (
-                            <div className="invalid-feedback d-block">
-                              {emailErrorMessage}
-                            </div>
-                          )}
-                        </FormGroup>
-
-                        <FormGroup className="form-group has-float-label mb-4">
-                          <Label>Password</Label>
-                          <Input
-                            type="password"
-                            value={password}
-                            onChange={(e) => setPassword(e.target.value)}
-                            onFocus={() => setPasswordFocus(true)}
-                          />
-                          {passwordErrorMessage && (
-                            <div className="invalid-feedback d-block">
-                              {passwordErrorMessage}
-                            </div>
-                          )}
-                        </FormGroup>
-
-                        <FormGroup className="form-group has-float-label mb-4">
-                          <Label>Confirm Password</Label>
-                          <Input
-                            type="password"
-                            value={confirmPassword}
-                            onChange={(e) => setConfirmPassword(e.target.value)}
-                            onFocus={() => setConfirmPasswordFocus(true)}
-                          />
-                          {confirmPasswordErrorMessage && (
-                            <div className="invalid-feedback d-block">
-                              {confirmPasswordErrorMessage}
-                            </div>
-                          )}
-                        </FormGroup>
-                      </ReactstrapForm>
-                    </Step>
-                    {/* TODO: validation 추가해야됨. input 형태 바꿔야됨(이메일, 주소). */}
-                    <Step id="step2" name="사업자정보" desc="">
-                      <Formik
-                        innerRef={formRef}
-                        initialValues={{
-                          companyName,
-                          companyNumber,
-                          representativeName,
-                          businessCondition,
-                          sectors,
-                          address,
-                          taxBill,
-                          manager,
-                          tel,
-                        }}
-                        onSubmit={() => {}}
-                      >
-                        {({ errors, touched }) => (
-                          <FormikForm className="av-tooltip tooltip-label-bottom">
-                            <FormGroup className="form-group has-float-label">
-                              <Label>업체명</Label>
-                              <Field
-                                className="form-control"
-                                name="companyName"
-                                validate={validateCompanyName}
-                              />
-                              {errors.companyName && touched.companyName && (
-                                <div className="invalid-feedback d-block">
-                                  {errors.companyName}
-                                </div>
-                              )}
-                            </FormGroup>
-                            <FormGroup className="form-group has-float-label">
-                              <Label>사업자등록번호</Label>
-                              <Field
-                                className="form-control"
-                                name="companyNumber"
-                              />
-                            </FormGroup>
-                            <FormGroup className="form-group has-float-label">
-                              <Label>대표자명</Label>
-                              <Field
-                                className="form-control"
-                                name="representativeName"
-                              />
-                            </FormGroup>
-                            <FormGroup className="form-group has-float-label">
-                              <Label>업태</Label>
-                              <Field
-                                className="form-control"
-                                name="businessCondition"
-                              />
-                            </FormGroup>
-                            <FormGroup className="form-group has-float-label">
-                              <Label>업종</Label>
-                              <Field className="form-control" name="sectors" />
-                            </FormGroup>
-                            <FormGroup className="form-group has-float-label">
-                              <Label>사업장소재지</Label>
-                              <Field className="form-control" name="address" />
-                            </FormGroup>
-                            <FormGroup className="form-group has-float-label">
-                              <Label>세금계산서</Label>
-                              <Field className="form-control" name="taxBill" />
-                            </FormGroup>
-                            <FormGroup className="form-group has-float-label">
-                              <Label>담당자명</Label>
-                              <Field className="form-control" name="manager" />
-                            </FormGroup>
-                            <FormGroup className="form-group has-float-label">
-                              <Label>연락처</Label>
-                              <Field className="form-control" name="tel" />
-                            </FormGroup>
-                          </FormikForm>
-                        )}
-                      </Formik>
-                    </Step>
-                    <Step id="step3" hideTopNav>
-                      <div className="wizard-basic-step text-center pt-3">
-                        {loading ? (
-                          <div>
-                            <Spinner color="primary" className="mb-1" />
-                            <p>loading...</p>
+            <CardBody className="wizard wizard-default">
+              <Wizard>
+                <TopNavigation
+                  className="justify-content-center"
+                  disableNav
+                />
+                <Steps>
+                  {/* TODO: 항목 추가/삭제 및 이메일 중복체크 추가여부 검토 */}
+                  <Step id="step1" name="기본정보" desc="">
+                    <ReactstrapForm className="av-tooltip tooltip-label-bottom">
+                      <FormGroup className="form-group has-float-label mb-4">
+                        <Label>ID</Label>
+                        <Input
+                          type="text"
+                          value={id}
+                          onChange={(e) => setId(e.target.value)}
+                          onFocus={() => setIdFocus(true)}
+                        />
+                        {idErrorMessage && (
+                          <div className="invalid-feedback d-block">
+                            {idErrorMessage}
                           </div>
-                        ) : (
-                          <>
-                            {error ? (
-                              <p>{error}</p>
-                            ) : (
-                              <>
-                                <h2 className="mb-2">Thank You!</h2>
-                                <p>Your registration completed successfully!</p>
-                              </>
-                            )}
-                          </>
                         )}
-                      </div>
-                    </Step>
-                  </Steps>
-                  <BottomNavigation
-                    onClickNext={onClickNext}
-                    onClickPrev={onClickPrev}
-                    className={`justify-content-center ${
-                      bottomNavHidden && 'invisible'
-                    }`}
-                    prevLabel="Back"
-                    nextLabel="Next"
-                  />
-                </Wizard>
-              </CardBody>
-            </div>
-          </Card>
-        </Colxx>
-      </Row>
-    </UserLayout>
+                      </FormGroup>
+
+                      <FormGroup className="form-group has-float-label mb-4">
+                        <Label>E-mail</Label>
+                        <Input
+                          type="email"
+                          value={email}
+                          onChange={(e) => setEmail(e.target.value)}
+                          onFocus={() => setEmailFocus(true)}
+                        />
+                        {emailErrorMessage && (
+                          <div className="invalid-feedback d-block">
+                            {emailErrorMessage}
+                          </div>
+                        )}
+                      </FormGroup>
+
+                      <FormGroup className="form-group has-float-label mb-4">
+                        <Label>Password</Label>
+                        <Input
+                          type="password"
+                          value={password}
+                          onChange={(e) => setPassword(e.target.value)}
+                          onFocus={() => setPasswordFocus(true)}
+                        />
+                        {passwordErrorMessage && (
+                          <div className="invalid-feedback d-block">
+                            {passwordErrorMessage}
+                          </div>
+                        )}
+                      </FormGroup>
+
+                      <FormGroup className="form-group has-float-label mb-4">
+                        <Label>Confirm Password</Label>
+                        <Input
+                          type="password"
+                          value={confirmPassword}
+                          onChange={(e) => setConfirmPassword(e.target.value)}
+                          onFocus={() => setConfirmPasswordFocus(true)}
+                        />
+                        {confirmPasswordErrorMessage && (
+                          <div className="invalid-feedback d-block">
+                            {confirmPasswordErrorMessage}
+                          </div>
+                        )}
+                      </FormGroup>
+                    </ReactstrapForm>
+                  </Step>
+                  {/* TODO: validation 추가해야됨. input 형태 바꿔야됨(이메일, 주소). */}
+                  <Step id="step2" name="사업자정보" desc="">
+                    <Formik
+                      innerRef={formRef}
+                      initialValues={{
+                        companyName,
+                        companyNumber,
+                        representativeName,
+                        businessCondition,
+                        sectors,
+                        address,
+                        taxBill,
+                        manager,
+                        tel,
+                      }}
+                      onSubmit={() => {}}
+                    >
+                      {({ errors, touched }) => (
+                        <FormikForm className="av-tooltip tooltip-label-bottom">
+                          <FormGroup className="form-group has-float-label">
+                            <Label>업체명</Label>
+                            <Field
+                              className="form-control"
+                              name="companyName"
+                              validate={validateCompanyName}
+                            />
+                            {errors.companyName && touched.companyName && (
+                              <div className="invalid-feedback d-block">
+                                {errors.companyName}
+                              </div>
+                            )}
+                          </FormGroup>
+                          <FormGroup className="form-group has-float-label">
+                            <Label>사업자등록번호</Label>
+                            <Field
+                              className="form-control"
+                              name="companyNumber"
+                            />
+                          </FormGroup>
+                          <FormGroup className="form-group has-float-label">
+                            <Label>대표자명</Label>
+                            <Field
+                              className="form-control"
+                              name="representativeName"
+                            />
+                          </FormGroup>
+                          <FormGroup className="form-group has-float-label">
+                            <Label>업태</Label>
+                            <Field
+                              className="form-control"
+                              name="businessCondition"
+                            />
+                          </FormGroup>
+                          <FormGroup className="form-group has-float-label">
+                            <Label>업종</Label>
+                            <Field className="form-control" name="sectors" />
+                          </FormGroup>
+                          <FormGroup className="form-group has-float-label">
+                            <Label>사업장소재지</Label>
+                            <Field className="form-control" name="address" />
+                          </FormGroup>
+                          <FormGroup className="form-group has-float-label">
+                            <Label>세금계산서</Label>
+                            <Field className="form-control" name="taxBill" />
+                          </FormGroup>
+                          <FormGroup className="form-group has-float-label">
+                            <Label>담당자명</Label>
+                            <Field className="form-control" name="manager" />
+                          </FormGroup>
+                          <FormGroup className="form-group has-float-label">
+                            <Label>연락처</Label>
+                            <Field className="form-control" name="tel" />
+                          </FormGroup>
+                        </FormikForm>
+                      )}
+                    </Formik>
+                  </Step>
+                  <Step id="step3" hideTopNav>
+                    <div className="wizard-basic-step text-center pt-3">
+                      {loading ? (
+                        <div>
+                          <Spinner color="primary" className="mb-1" />
+                          <p>loading...</p>
+                        </div>
+                      ) : (
+                        <>
+                          {error ? (
+                            <p>{error}</p>
+                          ) : (
+                            <>
+                              <h2 className="mb-2">Thank You!</h2>
+                              <p>Your registration completed successfully!</p>
+                            </>
+                          )}
+                        </>
+                      )}
+                    </div>
+                  </Step>
+                </Steps>
+                <BottomNavigation
+                  onClickNext={onClickNext}
+                  onClickPrev={onClickPrev}
+                  className={`justify-content-center ${
+                    bottomNavHidden && 'invisible'
+                  }`}
+                  prevLabel="Back"
+                  nextLabel="Next"
+                />
+              </Wizard>
+            </CardBody>
+          </div>
+        </Card>
+      </Colxx>
+    </Row>
   );
 };
 
