@@ -1,8 +1,7 @@
 package kr.co.printingworks.printdesk.entity;
 
 import kr.co.printingworks.printdesk.enumerate.*;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 
@@ -11,8 +10,11 @@ import java.util.Date;
 
 @Entity
 @Getter
-@Setter
+//@Setter
+@Builder(toBuilder = true)
 @Table(name = "sys_company")
+@NoArgsConstructor
+@AllArgsConstructor
 @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
 public class Company extends AbstractEntity {
     @Id
@@ -48,7 +50,7 @@ public class Company extends AbstractEntity {
     private Date expireTime;
     @Column(length = 20)
     @Enumerated(EnumType.STRING)
-    private InitStep initStep;
+    private InitStep initStep; // 초기화진행여부
     @Column(length = 20)
     private String county;
     @Column(length = 20)
@@ -59,7 +61,7 @@ public class Company extends AbstractEntity {
     private String email;
     @Column(length = 20)
     @Enumerated(EnumType.STRING)
-    private BoolValue isFormal;
+    private BoolValue isFormal; // 정식사용여부
     private String website;
     @Column(length = 50)
     private String weixin;
@@ -68,7 +70,7 @@ public class Company extends AbstractEntity {
     @Enumerated(EnumType.STRING)
     private CompanyState state;
     @Column(length = 50)
-    private String contractCompanyName;
+    private String contractCompanyName; // 계약회사명 ????
     private Date contractTime;
 
     // one to many

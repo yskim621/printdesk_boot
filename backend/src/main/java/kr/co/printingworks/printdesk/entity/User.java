@@ -13,6 +13,7 @@ import java.util.Date;
 @Getter
 @Table(name = "sys_user")
 @Setter
+@Builder(toBuilder = true)
 @NoArgsConstructor
 @AllArgsConstructor
 @ToString

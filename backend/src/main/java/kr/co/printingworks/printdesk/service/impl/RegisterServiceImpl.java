@@ -15,6 +15,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
 import java.util.Date;
 
 @Service
@@ -30,35 +31,44 @@ public class RegisterServiceImpl implements RegisterService {
     Integer companyTrydayNum;
 
     @Override
+    @Transactional
     public void register(RegisterDto registerDto) {
-        System.out.println(registerDto);
-//        String plainPassword = registerDto.getPassword();
-//        String password = UserUtils.encryptPassword(plainPassword);
-//        registerDto.setPassword(password);
-//
-//        User user = UserMapper.INSTANCE.toEntity(registerDto);
-//
-//        Company company = new Company();
-//        company.setId(UserUtils.createCompanyId());
-//        company.setExpireTime(DateTimeUtil.addDate(new Date(), companyTrydayNum));
-//        company.setCreateTime(new Date());
-//        company.setState(CompanyState.ONSALING);
-//        company.setIsFormal(BoolValue.NO);
-//        company.setInitStep(InitStep.INIT_COMPANY);
-//        company.setStandardCurrency(CurrencyType.RMB);
-//        company.setType(CompanyType.NORMAL);
-//        company.setTel(registerDto.getMobile());
-//        company = companyRepository.save(company);
-//
-//        user.setCompanyId(company.getId());
-//        user.setUserNo(UserUtils.createUserNo(company.getId()));
-//
-//        userRepository.save(user);
-//
-//        company = companyRepository.findById(company.getId());
-//        company.setRegisterUserId(user.getId());
-//        company.setCreateName(user.getUserName());
-//        companyRepository.save(company);
+        String plainPassword = registerDto.getPassword();
+        String password = UserUtils.encryptPassword(plainPassword);
+        registerDto.setPassword(password);
+
+        User user = UserMapper.INSTANCE.toEntity(registerDto);
+
+        // registerDto -> companyNumber(사업자 등록번호), representativeName(대표자명), businessCondition(업태), sectors(업종)
+        Company company = Company.builder()
+                .id(UserUtils.createCompanyId())
+                .expireTime(DateTimeUtil.addDate(new Date(), companyTrydayNum))
+                .createTime(new Date())
+                .state(CompanyState.ONSALING)
+                .isFormal(BoolValue.NO)
+                .standardCurrency(CurrencyType.RMB)
+                .type(CompanyType.NORMAL) // 유형
+                .tel(registerDto.getTel())
+                .address(registerDto.getAddress())
+                .linkName(registerDto.getManager())
+                .name(registerDto.getCompanyName())
+                .email(registerDto.getTaxBill())
+                .build();
+        company = companyRepository.save(company);
+
+        user = user.toBuilder()
+                .companyId(company.getId())
+                .userNo(UserUtils.createUserNo(company.getId()))
+                .build();
+
+        userRepository.save(user);
+
+        company = companyRepository.findById(company.getId());
+        company = company.toBuilder()
+                .registerUserId(user.getId())
+                .createName(user.getUserName())
+                .build();
+        companyRepository.save(company);
     }
 
     @Override
