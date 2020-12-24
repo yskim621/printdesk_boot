@@ -39,5 +39,8 @@ module.exports = (phase) => {
       return config;
     },
     env,
+    redirects: async () => [
+      { source: '/', destination: '/sys/user/list', permanent: true },
+    ],
   });
 };

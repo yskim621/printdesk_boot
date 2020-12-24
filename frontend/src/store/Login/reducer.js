@@ -1,4 +1,6 @@
 import produce from 'immer';
+import cookie from 'js-cookie';
+import Router from 'next/router';
 import { LOGIN, LOGIN_SUCCESS, LOGIN_ERROR } from './constants';
 
 export const initialState = {
@@ -19,6 +21,8 @@ const loginReducer = (state = initialState, action) =>
         draft.form = {};
         draft.loading = false;
         draft.error = null;
+        cookie.set('token', action.payload);
+        Router.push('/');
         break;
       case LOGIN_ERROR:
         draft.loading = false;

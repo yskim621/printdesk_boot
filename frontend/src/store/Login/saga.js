@@ -7,8 +7,8 @@ import loginRequest from './requests';
 function* login() {
   const form = yield select(formSelector());
   try {
-    yield call(loginRequest, form);
-    yield put(loginSuccessAction());
+    const res = yield call(loginRequest, form);
+    yield put(loginSuccessAction(res));
   } catch (error) {
     yield put(loginErrorAction(error));
   }

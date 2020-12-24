@@ -7,9 +7,10 @@ const loginAction = (form) => {
   };
 };
 
-const loginSuccessAction = () => {
+const loginSuccessAction = (token) => {
   return {
     type: LOGIN_SUCCESS,
+    payload: token,
   };
 };
 
