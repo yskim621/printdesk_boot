@@ -1,8 +1,10 @@
+import AppLayout from '../../../src/containers/layout/app';
+
 const SysCompanyList = () => {
   return (
-    <div>
-      SysCompanyListPage
-    </div>
+    <AppLayout>
+      {`환경설정 > 권한관리 > 회사관리`}
+    </AppLayout>
   );
 };
 

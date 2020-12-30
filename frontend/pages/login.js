@@ -4,6 +4,7 @@ import Link from 'next/link';
 import { Row, Card, CardTitle, Label, FormGroup, Button } from 'reactstrap';
 import { Formik, Form, Field } from 'formik';
 
+import UserLayout from '../src/containers/layout/user';
 import { Colxx } from '../src/components/common/CustomBootstrap';
 import { withTranslation } from '../src/i18n';
 import { NotificationManager } from '../src/components/common/react-notifications';
@@ -58,88 +59,90 @@ const LoginPage = ({ t }) => {
   };
 
   return (
-    <Row className="h-100">
-      <Colxx xxs="12" md="10" className="mx-auto my-auto">
-        <Card className="auth-card">
-          <div className="position-relative image-side ">
-            <p className="text-white h2">MAGIC IS IN THE DETAILS</p>
-            <p className="white mb-0">
-              Please use your credentials to login.
-              <br />
-              If you are not a member, please{' '}
-              <Link href="/register" passHref>
-                <a className="white">register</a>
+    <UserLayout>
+      <Row className="h-100">
+        <Colxx xxs="12" md="10" className="mx-auto my-auto">
+          <Card className="auth-card">
+            <div className="position-relative image-side ">
+              <p className="text-white h2">MAGIC IS IN THE DETAILS</p>
+              <p className="white mb-0">
+                Please use your credentials to login.
+                <br />
+                If you are not a member, please{' '}
+                <Link href="/register" passHref>
+                  <a className="white">register</a>
+                </Link>
+                .
+              </p>
+            </div>
+
+            <div className="form-side">
+              <Link href="/" passHref>
+                <a className="white">
+                  <span className="logo-single" />
+                </a>
               </Link>
-              .
-            </p>
-          </div>
+              <CardTitle className="mb-4">Login</CardTitle>
 
-          <div className="form-side">
-            <Link href="/" passHref>
-              <a className="white">
-                <span className="logo-single" />
-              </a>
-            </Link>
-            <CardTitle className="mb-4">Login</CardTitle>
-
-            <Formik initialValues={initialValues} onSubmit={onUserLogin}>
-              {({ errors, touched }) => (
-                <Form className="av-tooltip tooltip-label-bottom">
-                  <FormGroup className="form-group has-float-label">
-                    <Label>ID</Label>
-                    <Field
-                      className="form-control"
-                      type="text"
-                      name="id"
-                      validate={validateId}
-                    />
-                    {errors.id && touched.id && (
-                      <div className="invalid-feedback d-block">
-                        {errors.id}
-                      </div>
-                    )}
-                  </FormGroup>
-                  <FormGroup className="form-group has-float-label">
-                    <Label>Password</Label>
-                    <Field
-                      className="form-control"
-                      type="password"
-                      name="password"
-                      validate={validatePassword}
-                    />
-                    {errors.password && touched.password && (
-                      <div className="invalid-feedback d-block">
-                        {errors.password}
-                      </div>
-                    )}
-                  </FormGroup>
-                  <div className="d-flex justify-content-between align-items-center">
-                    <Link href="/user/forgot-password">
-                      {t('forgot-password-question')}
-                    </Link>
-                    <Button
-                      type="submit"
-                      color="primary"
-                      className={`btn-shadow btn-multiple-state ${
-                        loading ? 'show-spinner' : ''
-                      }`}
-                      size="lg"
-                    >
-                      <span className="spinner d-inline-block">
-                        <span className="bounce1" />
-                        <span className="bounce2" />
-                        <span className="bounce3" />
-                      </span>
-                      <span className="label">LOGIN</span>
-                    </Button>
-                  </div>
-                </Form>
-              )}
-            </Formik>
-          </div>
-        </Card>
-      </Colxx>
-    </Row>
+              <Formik initialValues={initialValues} onSubmit={onUserLogin}>
+                {({ errors, touched }) => (
+                  <Form className="av-tooltip tooltip-label-bottom">
+                    <FormGroup className="form-group has-float-label">
+                      <Label>ID</Label>
+                      <Field
+                        className="form-control"
+                        type="text"
+                        name="id"
+                        validate={validateId}
+                      />
+                      {errors.id && touched.id && (
+                        <div className="invalid-feedback d-block">
+                          {errors.id}
+                        </div>
+                      )}
+                    </FormGroup>
+                    <FormGroup className="form-group has-float-label">
+                      <Label>Password</Label>
+                      <Field
+                        className="form-control"
+                        type="password"
+                        name="password"
+                        validate={validatePassword}
+                      />
+                      {errors.password && touched.password && (
+                        <div className="invalid-feedback d-block">
+                          {errors.password}
+                        </div>
+                      )}
+                    </FormGroup>
+                    <div className="d-flex justify-content-between align-items-center">
+                      <Link href="/user/forgot-password">
+                        {t('forgot-password-question')}
+                      </Link>
+                      <Button
+                        type="submit"
+                        color="primary"
+                        className={`btn-shadow btn-multiple-state ${
+                          loading ? 'show-spinner' : ''
+                        }`}
+                        size="lg"
+                      >
+                        <span className="spinner d-inline-block">
+                          <span className="bounce1" />
+                          <span className="bounce2" />
+                          <span className="bounce3" />
+                        </span>
+                        <span className="label">LOGIN</span>
+                      </Button>
+                    </div>
+                  </Form>
+                )}
+              </Formik>
+            </div>
+          </Card>
+        </Colxx>
+      </Row>
+    </UserLayout>
   );
 };
 

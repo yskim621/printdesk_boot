@@ -1,10 +1,11 @@
+import AppLayout from '../src/containers/layout/app';
 import { withTranslation } from '../src/i18n';
 
 const HomePage = ({ t }) => {
   return (
-    <div>
+    <AppLayout>
       {t('greeting')}
-    </div>
+    </AppLayout>
   );
 };
 

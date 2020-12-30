@@ -1,6 +1,8 @@
 import { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import Link from 'next/link';
+import { useRouter } from 'next/router';
+import cookie from 'js-cookie';
 import {
   UncontrolledDropdown,
   DropdownToggle,
@@ -28,6 +30,7 @@ import cnFlag from '../../../../public/assets/img/flags/china.jpg';
 
 const Navbar = ({ t }) => {
   const dispatch = useDispatch();
+  const router = useRouter();
   const [language, setLanguage] = useState('ko');
   const clickOnMobileMenu = (containerClassnames) => {
     dispatch(clickOnMobileMenuAction(containerClassnames));
@@ -149,10 +152,11 @@ const Navbar = ({ t }) => {
               <DropdownItem>History</DropdownItem>
               <DropdownItem>Support</DropdownItem>
               <DropdownItem divider />
-              {/* TODO: sign out onclick handler 구현 */}
               <DropdownItem
+                // TODO: token관련 코드 분리하기
                 onClick={() => {
-                  console.log('logout');
+                  cookie.remove('token');
+                  router.push('/login');
                 }}
               >
                 Sign out
