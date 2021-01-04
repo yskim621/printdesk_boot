@@ -13,7 +13,7 @@ import {
 import AppLayout from '../../../src/containers/layout/app';
 import ListPageHeading from '../../../src/containers/pages/ListPageHeading';
 
-const BasicDepartmentList = () => {
+const BasicDepartmentList = ({ match }) => {
   const dispatch = useDispatch();
   const form = useRef();
   const [isOpen, setIsOpen] = useState(false);
@@ -56,11 +56,12 @@ const BasicDepartmentList = () => {
   return (
     <AppLayout>
       {loading && <div className="loading" />}
+  
       <div className="disable-text-selection">
-        {/* <ListPageHeading heading="부서정보" match={} /> */}
-        {`기초설정 > 부서/직원 > 부서정보`}
+        <ListPageHeading heading="부서정보" match={match} />
+        {/* {`기초설정 > 부서/직원 > 부서정보`} */}
 
-        <hr />
+       
         <button type="button" onClick={() => setIsOpen(true)}>
           추가
         </button>
