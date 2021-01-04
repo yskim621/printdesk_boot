@@ -12,11 +12,14 @@ import {
 } from '../../../src/store/Basic/selectors';
 import AppLayout from '../../../src/containers/layout/app';
 import ListPageHeading from '../../../src/containers/pages/ListPageHeading';
+import AddNewModal from '../../../src/containers/pages/AddNewModal';
+import ListPageListing from '../../../src/containers/pages/ListPageListing'
 
 const BasicDepartmentList = ({ match }) => {
   const dispatch = useDispatch();
   const form = useRef();
   const [isOpen, setIsOpen] = useState(false);
+  const [modalOpen, setModalOpen] = useState(false);
   const addDepartment = (index, name, remark) => {
     dispatch(addDepartmentAction(index, name, remark));
   };
@@ -58,13 +61,16 @@ const BasicDepartmentList = ({ match }) => {
       {loading && <div className="loading" />}
   
       <div className="disable-text-selection">
-        <ListPageHeading heading="부서정보" match={match} />
+        <ListPageHeading
+          heading="부서정보"
+          match={match}
+          toggleModal={() => setModalOpen(!modalOpen)}/>
         {/* {`기초설정 > 부서/직원 > 부서정보`} */}
 
-       
-        <button type="button" onClick={() => setIsOpen(true)}>
-          추가
-        </button>
+        <AddNewModal
+          modalOpen={modalOpen}
+          toggleModal={() => setModalOpen(!modalOpen)}
+        />
         <Table>
           <thead>
             <tr>
@@ -76,23 +82,6 @@ const BasicDepartmentList = ({ match }) => {
           </thead>
           <tbody>{departmentList && departmentListMap}</tbody>
         </Table>
-        {isOpen && (
-          <div>
-            <button type="button" onClick={() => setIsOpen(false)}>
-              x
-            </button>
-            <form ref={form} onSubmit={add}>
-              <input type="text" name="index" />
-              <input type="text" name="name" />
-              <input
-                type="textarea"
-                name="remark"
-                placeholder="100자 이내로 입력해주세요"
-              />
-              <button type="submit">저장</button>
-            </form>
-          </div>
-        )}
       </div>
     </AppLayout>
   );
