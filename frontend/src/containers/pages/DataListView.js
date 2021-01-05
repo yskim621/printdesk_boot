@@ -5,11 +5,18 @@ import classnames from 'classnames';
 import { ContextMenuTrigger } from 'react-contextmenu';
 import { Colxx } from '../../components/common/CustomBootstrap';
 
-const DataListView = ({ product }) => {
+const DataListView = ({ product, isSelect, onCheckItem}) => {
+  
   return (
     <Colxx xxs="12" className="mb-3">
       <ContextMenuTrigger id="menu_id" data={product.index}>
-        <Card>
+        <Card
+          onClick={(event) => onCheckItem(event, product.index)}
+          className={classnames('d-flex flex-row', {
+          active: isSelect,
+          })}
+        >
+          
           <div className="pl-2 d-flex flex-grow-1 min-width-zero">
             <div className="card-body align-self-center d-flex flex-column flex-lg-row justify-content-between min-width-zero align-items-lg-center">
               <p className="list-item-heading mb-1 truncate">
@@ -21,6 +28,16 @@ const DataListView = ({ product }) => {
               <p className="list-item-heading mb-1 truncate">
                 {product.remark}
               </p>
+            </div>
+            <div className="custom-control custom-checkbox pl-1 align-self-center pr-4">
+              <CustomInput
+                className="item-check mb-0"
+                type="checkbox"
+                id={`check_${product.index}`}
+                checked={isSelect}
+                onChange={() => {}}
+                label=""
+              />
             </div>
           </div>
         </Card>

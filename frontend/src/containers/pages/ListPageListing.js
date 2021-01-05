@@ -28,8 +28,8 @@ const ListPageListing = ({
           <DataListView
             key={product.index}
             product={product}
-            // isSelect={selectedItems.includes(product.id)}
-            // onCheckItem={onCheckItem}
+            isSelect={selectedItems.includes(product.index)}
+            onCheckItem={onCheckItem}
             // collect={collect}
           />
         );
