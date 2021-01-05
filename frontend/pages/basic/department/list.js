@@ -20,21 +20,11 @@ const BasicDepartmentList = ({ match }) => {
   const form = useRef();
   const [isOpen, setIsOpen] = useState(false);
   const [modalOpen, setModalOpen] = useState(false);
-  const addDepartment = (index, name, remark) => {
-    dispatch(addDepartmentAction(index, name, remark));
-  };
-  const getDepartmentList = () => {
-    dispatch(getDepartmentListAction());
-  };
-  const loading = useSelector(loadingSelector());
-  const departmentList = useSelector(departmentListSelector());
 
-  useEffect(() => {
-    getDepartmentList();
-  }, []);
 
   const [isLoaded, setIsLoaded] = useState(false);
   const [displayMode, setDisplayMode] = useState('list');
+  // page에 관련된 것은 ListPageHeading 과 ListPageListing에 있는 함수에 영향을 줍니다.
   const [currentPage, setCurrentPage] = useState(1);
   const [selectedPageSize, setSelectedPageSize] = useState(8);
   const [selectedOrderOption, setSelectedOrderOption] = useState({
@@ -46,6 +36,26 @@ const BasicDepartmentList = ({ match }) => {
   const [search, setSearch] = useState('');
   const [selectedItems, setSelectedItems] = useState([]);
   const [lastChecked, setLastChecked] = useState(null);
+
+  const addDepartment = (index, name, remark) => {
+    dispatch(addDepartmentAction(index, name, remark));
+  };
+  const getDepartmentList = () => {
+    dispatch(getDepartmentListAction());
+  };
+  const loading = useSelector(loadingSelector());
+  const departmentList = useSelector(departmentListSelector());
+
+  useEffect(() => {
+    getDepartmentList();
+
+  }, []);
+
+ 
+  const pageSizes = [4, 8, 12, 20];
+
+  const startIndex = (currentPage - 1) * selectedPageSize;
+  const endIndex = currentPage * selectedPageSize;
 
   const add = (e) => {
     e.preventDefault();
@@ -64,7 +74,7 @@ const BasicDepartmentList = ({ match }) => {
     }
     return -1;
   };
-  // 체크박스를 활성화 시켜주는 함수입니다. DataListView에서 선택된 카드의 체크박스를 활성화 시켜 줍니다. 
+  // 체크박스를 활성화 시켜주는 함수입니다. DataListView에서 선택된 카드의 체크박스를 활성화 시켜 줍니다.
   const onCheckItem = (event, id) => {
     if (
       event.target.tagName === 'A' ||
@@ -134,15 +144,29 @@ const BasicDepartmentList = ({ match }) => {
       {loading && <div className="loading" />}
   
       <div className="disable-text-selection">
+        {/* 부서정보에서 헤더에 해당합니다.  */}
         <ListPageHeading
           heading="부서정보"
           match={match}
           handleChangeSelectAll={handleChangeSelectAll}
           itemsLength={departmentList ? departmentList.length : 0}
           selectedItemsLength={selectedItems ? selectedItems.length : 0}
-          toggleModal={() => setModalOpen(!modalOpen)}/>
+          toggleModal={() => setModalOpen(!modalOpen)}
+          pageSizes={pageSizes}
+          onSearchKey={(e) => {
+            if (e.key === 'Enter') {
+              setSearch(e.target.value.toLowerCase());
+            }
+          }}
+          changePageSize={setSelectedPageSize}
+          selectedPageSize={selectedPageSize}
+          totalItemCount={departmentList ? departmentList.length : 0}
+          selectedOrderOption={selectedOrderOption}
+          startIndex={startIndex}
+          endIndex={endIndex}/>
         {/* {`기초설정 > 부서/직원 > 부서정보`} */}
 
+        {/* 부서정보에서 부서추가 버튼을 클릭할때 나오는 모달입니다. */}
         <AddNewModal
           modalOpen={modalOpen}
           toggleModal={() => setModalOpen(!modalOpen)}
@@ -158,14 +182,16 @@ const BasicDepartmentList = ({ match }) => {
             </tr>
           </thead>
         </Table>
-
+      
+        {/* 부서정보의 본문을 담당하는 함수입니다.  */}
         {departmentList &&
           <ListPageListing
             items = {departmentList}
             selectedItems={selectedItems}
             onCheckItem={onCheckItem}
-          >
+            toggleModal={() => setModalOpen(!modalOpen)}
 
+          >
         </ListPageListing>
         }
         

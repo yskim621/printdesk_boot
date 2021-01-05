@@ -17,6 +17,7 @@ const ListPageListing = ({
   onCheckItem,
   currentPage,
   totalPage,
+  toggleModal,
   onContextMenuClick,
   onContextMenu,
   onChangePage,
@@ -30,6 +31,7 @@ const ListPageListing = ({
             product={product}
             isSelect={selectedItems.includes(product.index)}
             onCheckItem={onCheckItem}
+            toggleModal={toggleModal}
             // collect={collect}
           />
         );

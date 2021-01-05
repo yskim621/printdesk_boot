@@ -5,7 +5,7 @@ import classnames from 'classnames';
 import { ContextMenuTrigger } from 'react-contextmenu';
 import { Colxx } from '../../components/common/CustomBootstrap';
 
-const DataListView = ({ product, isSelect, onCheckItem}) => {
+const DataListView = ({ product, isSelect, onCheckItem,toggleModal}) => {
   
   return (
     <Colxx xxs="12" className="mb-3">
@@ -28,10 +28,15 @@ const DataListView = ({ product, isSelect, onCheckItem}) => {
               <p className="list-item-heading mb-1 truncate">
                 {product.remark}
               </p>
+              <div>
+                <a href={toggleModal} onClick={() => toggleModal()}>
+                  <i className="iconsminds-pen"/>
+                </a>
+                
+                <i className="iconsminds-eraser-2"/>
+                
+              </div>
             </div>
-            {/* <div>
-              <Button
-            </div> */}
             <div className="custom-control custom-checkbox pl-1 align-self-center pr-4">
               <CustomInput
                 className="item-check mb-0"
@@ -44,6 +49,7 @@ const DataListView = ({ product, isSelect, onCheckItem}) => {
             </div>
           </div>
         </Card>
+       
       </ContextMenuTrigger>
     </Colxx>
   );
