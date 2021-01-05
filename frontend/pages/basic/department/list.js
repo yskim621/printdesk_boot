@@ -64,7 +64,7 @@ const BasicDepartmentList = ({ match }) => {
     }
     return -1;
   };
-
+  // 체크박스를 활성화 시켜주는 함수입니다. DataListView에서 선택된 카드의 체크박스를 활성화 시켜 줍니다. 
   const onCheckItem = (event, id) => {
     if (
       event.target.tagName === 'A' ||
@@ -101,6 +101,19 @@ const BasicDepartmentList = ({ match }) => {
     return false;
   };
 
+  // ListPageHeading에서 체크박스를 전체 활성화 시켜 주는 함수입니다.
+  const handleChangeSelectAll = (isToggle) => {
+    if (selectedItems.length >= departmentList.length) {
+      if (isToggle) {
+        setSelectedItems([]);
+      }
+    } else {
+      setSelectedItems(departmentList.map((x) => x.index));
+    }
+    document.activeElement.blur();
+    return false;
+  };
+
 
   const departmentListMap =
     departmentList &&
@@ -124,6 +137,9 @@ const BasicDepartmentList = ({ match }) => {
         <ListPageHeading
           heading="부서정보"
           match={match}
+          handleChangeSelectAll={handleChangeSelectAll}
+          itemsLength={departmentList ? departmentList.length : 0}
+          selectedItemsLength={selectedItems ? selectedItems.length : 0}
           toggleModal={() => setModalOpen(!modalOpen)}/>
         {/* {`기초설정 > 부서/직원 > 부서정보`} */}
 
