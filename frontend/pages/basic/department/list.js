@@ -35,7 +35,6 @@ const BasicDepartmentList = ({ match }) => {
 
   const add = (e) => {
     e.preventDefault();
-
     const index = form.current.index.value;
     const name = form.current.name.value;
     const remark = form.current.remark.value;
@@ -80,8 +79,17 @@ const BasicDepartmentList = ({ match }) => {
               <th>처리</th>
             </tr>
           </thead>
-          <tbody>{departmentList && departmentListMap}</tbody>
         </Table>
+        {departmentList && 
+          <ListPageListing
+          items = {departmentList}
+          
+        >
+
+        </ListPageListing>
+        }
+        
+       
       </div>
     </AppLayout>
   );
