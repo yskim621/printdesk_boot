@@ -55,6 +55,8 @@ public class RegisterServiceImpl implements RegisterService {
 
         User user = UserMapper.INSTANCE.toEntity(registerDto);
         user.setCompany(company);
+        user.setLoginCount(0);
+        user.setLoginErrorCount(0);
         user.setUserNo(UserUtils.createUserNo(company.getId() + ""));
 
         userRepository.save(user);

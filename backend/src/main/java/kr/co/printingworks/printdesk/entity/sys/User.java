@@ -37,7 +37,6 @@ public class User {
     @Column(length = 30) private String email;
     @Column(length = 20) private String realName; // 사원이름인데 사원 id로 참조하기때문에 필요없음
 
-//    @Builder.Default
     @Column(length = 10)
     @Enumerated(EnumType.STRING)
     private final State state = State.NORMAL;
@@ -49,8 +48,8 @@ public class User {
     private String lastLoginIp;
     private Date lastLoginTime; // 최근 접속일
 
-    private final Integer loginCount = 0; // 로그인 횟수
-    private final Integer loginErrorCount = 0; // 로그인 실패 횟수
+    private Integer loginCount; // 로그인 횟수
+    private Integer loginErrorCount; // 로그인 실패 횟수
     @Column(length = 50) private String createName; // 계정 생성한 사람의 계정(환경설정 > 사용자관리 > 계정추가 할 당시 로그인한 사용자)
     @Column(length = 50) private String updateName;
 
@@ -61,15 +60,18 @@ public class User {
 //    @LastModifiedDate
     private Date updateTime;
 
-    @OneToOne(mappedBy = "registerUser")
+    @ToString.Exclude
+    @OneToOne(mappedBy = "registerUser", fetch = FetchType.LAZY)
     @JsonInclude(JsonInclude.Include.NON_EMPTY)
     private Company companyOfRegisterUser;
 
+    @ToString.Exclude
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "company_id")
     @JsonInclude(JsonInclude.Include.NON_EMPTY)
     private Company company;
 
+    @ToString.Exclude
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "employee_id")
     private Employee employee;
