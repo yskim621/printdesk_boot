@@ -50,8 +50,8 @@ public class User {
 
     private Integer loginCount; // 로그인 횟수
     private Integer loginErrorCount; // 로그인 실패 횟수
-    @Column(length = 50) private String createName; // 계정 생성한 사람의 계정(환경설정 > 사용자관리 > 계정추가 할 당시 로그인한 사용자)
-    @Column(length = 50) private String updateName;
+    @Column(length = 50) private String createName; // 해당계정 생성한 사람의 계정명
+    @Column(length = 50) private String updateName; // 해당계정 수정한 사람의 계정명
 
     @CreatedDate
     @Column(updatable = false)

@@ -44,6 +44,7 @@ public class AuthServiceImpl implements AuthService {
         if (user == null) {
             map.put("statusCode", 400);
         } else {
+            // TODO: 로그인 성공, 실패시 시스템일지테이블에 기록되어야됨.
             if (!UserUtils.validatePassword(loginDto.getPassword(), user.getPassword())) {
                 jpaQueryFactory
                         .update(qUser)
