@@ -2,7 +2,7 @@ package kr.co.printingworks.printdesk.mapper;
 
 import kr.co.printingworks.printdesk.dto.RegisterDto;
 import kr.co.printingworks.printdesk.dto.UserDto;
-import kr.co.printingworks.printdesk.entity.User;
+import kr.co.printingworks.printdesk.entity.sys.User;
 import org.mapstruct.Mapper;
 import org.mapstruct.factory.Mappers;
 
@@ -13,6 +13,5 @@ public interface UserMapper {
 
     UserDto toDto(User user);
 
-//    @Mapping(source = "ip", target = "last_login_ip")
     User toEntity(RegisterDto registerDto);
 }

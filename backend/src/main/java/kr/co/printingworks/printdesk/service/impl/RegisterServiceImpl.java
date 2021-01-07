@@ -1,8 +1,8 @@
 package kr.co.printingworks.printdesk.service.impl;
 
 import kr.co.printingworks.printdesk.dto.RegisterDto;
-import kr.co.printingworks.printdesk.entity.Company;
-import kr.co.printingworks.printdesk.entity.User;
+import kr.co.printingworks.printdesk.entity.sys.Company;
+import kr.co.printingworks.printdesk.entity.sys.User;
 import kr.co.printingworks.printdesk.enumerate.*;
 import kr.co.printingworks.printdesk.mapper.UserMapper;
 import kr.co.printingworks.printdesk.repo.CompanyRepository;
@@ -31,43 +31,37 @@ public class RegisterServiceImpl implements RegisterService {
     Integer companyTrydayNum;
 
     @Override
-    @Transactional
     public void register(RegisterDto registerDto) {
         String plainPassword = registerDto.getPassword();
         String password = UserUtils.encryptPassword(plainPassword);
         registerDto.setPassword(password);
 
+        // TODO: 사업자 등록번호, 대표자명, 업태, 업종 컬럼 추가하면되는지 물어보기
+        Company company = new Company();
+        company.setId(Long.parseLong(UserUtils.createCompanyId()));
+        company.setExpireTime(DateTimeUtil.addDate(new Date(), companyTrydayNum));
+        company.setCreateTime(new Date());
+        company.setState(CompanyState.ONSALING); // TODO: state에 업태 넣으면되는지 물어보고 맞으면 셀렉트박스로 바꿀지 물어보기
+        company.setIsFormal(BoolValue.NO);
+        company.setStandardCurrency(CurrencyType.RMB);
+        company.setType(CompanyType.NORMAL);
+        company.setTel(registerDto.getTel());
+        company.setAddress(registerDto.getAddress());
+        company.setLinkName(registerDto.getManager());
+        company.setName(registerDto.getCompanyName());
+        company.setEmail(registerDto.getTaxBill());
+
+        companyRepository.save(company);
+
         User user = UserMapper.INSTANCE.toEntity(registerDto);
-
-        // registerDto -> companyNumber(사업자 등록번호), representativeName(대표자명), businessCondition(업태), sectors(업종)
-        Company company = Company.builder()
-                .id(UserUtils.createCompanyId())
-                .expireTime(DateTimeUtil.addDate(new Date(), companyTrydayNum))
-                .createTime(new Date())
-                .state(CompanyState.ONSALING)
-                .isFormal(BoolValue.NO)
-                .standardCurrency(CurrencyType.RMB)
-                .type(CompanyType.NORMAL) // 유형
-                .tel(registerDto.getTel())
-                .address(registerDto.getAddress())
-                .linkName(registerDto.getManager())
-                .name(registerDto.getCompanyName())
-                .email(registerDto.getTaxBill())
-                .build();
-        company = companyRepository.save(company);
-
-        user = user.toBuilder()
-                .companyId(company.getId())
-                .userNo(UserUtils.createUserNo(company.getId()))
-                .build();
+        user.setCompany(company);
+        user.setUserNo(UserUtils.createUserNo(company.getId() + ""));
 
         userRepository.save(user);
 
-        company = companyRepository.findById(company.getId());
-        company = company.toBuilder()
-                .registerUserId(user.getId())
-                .createName(user.getUserName())
-                .build();
+        company.setRegisterUser(user);
+        company.setCreateName(user.getUserName());
+
         companyRepository.save(company);
     }
 

@@ -2,7 +2,7 @@ package kr.co.printingworks.printdesk.service.impl;
 
 import kr.co.printingworks.printdesk.dto.LoginDto;
 import kr.co.printingworks.printdesk.dto.UserDto;
-import kr.co.printingworks.printdesk.entity.User;
+import kr.co.printingworks.printdesk.entity.sys.User;
 import kr.co.printingworks.printdesk.mapper.UserMapper;
 import kr.co.printingworks.printdesk.repo.UserRepository;
 import kr.co.printingworks.printdesk.service.AuthService;

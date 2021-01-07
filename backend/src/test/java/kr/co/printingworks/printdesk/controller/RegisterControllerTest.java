@@ -1,6 +1,5 @@
 package kr.co.printingworks.printdesk.controller;
 
-import kr.co.printingworks.printdesk.repo.UserRepository;
 import org.json.JSONObject;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -16,20 +15,17 @@ import org.springframework.web.filter.CharacterEncodingFilter;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
+// TODO: service -> mockService로 바꿔서 테스트하는방법 찾기
 @SpringBootTest
 @ExtendWith(SpringExtension.class)
-public class AuthControllerTest {
+public class RegisterControllerTest {
 
     MockMvc mockMvc;
 
     @Autowired
     private WebApplicationContext context;
-
-    @Autowired
-    UserRepository userRepository;
 
     @BeforeEach
     void setup() {
@@ -42,17 +38,27 @@ public class AuthControllerTest {
     @Test
     public void login() throws Exception {
         JSONObject jsonObject = new JSONObject();
-        jsonObject
-                .put("userName", "admin")
-                .put("password", "123456");
+        jsonObject.put("userName", "admin")
+                .put("password", "123456")
+                .put("email", "hsshin@printingworks.co.kr")
+                .put("companyName", "프린팅웍스")
+                .put("companyNumber", "")
+                .put("representativeName", "조완준")
+                .put("businessCondition", "")
+                .put("sectors", "")
+                .put("address", "서울시 마포구")
+                .put("taxBill", "help@printingworks.co.kr")
+                .put("manager", "신형섭")
+                .put("tel", "0264550216");
 
-        String content = jsonObject.toString();
+        String requestParam = jsonObject.toString();
 
-        mockMvc.perform(post("/api/login")
-                                            .content(content)
-                                            .contentType(MediaType.APPLICATION_JSON_VALUE))
+        mockMvc.perform(
+                    post("/api/v1/register/register_submit")
+                            .content(requestParam)
+                            .contentType(MediaType.APPLICATION_JSON_VALUE)
+                )
                 .andExpect(status().isOk())
-                .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
                 .andDo(print());
     }
 }
