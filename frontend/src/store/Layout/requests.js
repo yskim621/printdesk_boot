@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const getMenuRequest = () =>
+const getMenuRequest = (token) =>
   axios.post(
     `${process.env.API_ENDPOINT}/dashboard/menu`,
     {},
@@ -8,6 +8,7 @@ const getMenuRequest = () =>
       headers: {
         'Access-Control-Allow-Origin': '*',
         'Content-Type': 'application/json',
+        Authorization: `Bearer ${token}`,
       },
     }
   );
