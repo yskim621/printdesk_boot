@@ -17,6 +17,7 @@ import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
 import java.util.Date;
+import java.util.Optional;
 
 @Service
 @PropertySource("classpath:constants.yml")
@@ -69,8 +70,10 @@ public class RegisterServiceImpl implements RegisterService {
 
     @Override
     public boolean checkUserName(String userName) {
-        User user = userRepository.findByUserName(userName);
-        return user == null;
+//        User user = userRepository.findByUserName(userName);
+//        return user == null;
+        Optional<User> user = userRepository.findByUserName(userName);
+        return !user.isPresent();
     }
 
     @Override

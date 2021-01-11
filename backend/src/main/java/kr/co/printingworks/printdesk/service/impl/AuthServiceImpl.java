@@ -8,7 +8,7 @@ import kr.co.printingworks.printdesk.entity.sys.User;
 import kr.co.printingworks.printdesk.mapper.UserMapper;
 import kr.co.printingworks.printdesk.repo.UserRepository;
 import kr.co.printingworks.printdesk.service.AuthService;
-import kr.co.printingworks.printdesk.utils.JwtTokenProvider;
+import kr.co.printingworks.printdesk.security.JwtTokenProvider;
 import kr.co.printingworks.printdesk.utils.UserUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

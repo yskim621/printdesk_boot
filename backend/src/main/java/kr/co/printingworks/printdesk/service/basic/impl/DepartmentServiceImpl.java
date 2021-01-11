@@ -9,7 +9,7 @@ import kr.co.printingworks.printdesk.entity.sys.Company;
 import kr.co.printingworks.printdesk.entity.sys.QCompany;
 import kr.co.printingworks.printdesk.mapper.DepartmentMapper;
 import kr.co.printingworks.printdesk.service.basic.DepartmentService;
-import kr.co.printingworks.printdesk.utils.JwtTokenProvider;
+import kr.co.printingworks.printdesk.security.JwtTokenProvider;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
