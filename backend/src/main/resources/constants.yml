@@ -1,8 +1,8 @@
 jwt:
   token:
     secret-key: ABCDEFGHIJKLMNOPQRSTUVWXYZ
-    ## 1000 * 60 * 60 * 24 = 1day
-    expire-length: 86400000
+    ## 1000 * 60 * 60 * 24 * 365 = 1year
+    expire-length: 31536000000
 
 spring:
   security:

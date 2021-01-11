@@ -1,7 +1,6 @@
 package kr.co.printingworks.printdesk.utils;
 
-import io.jsonwebtoken.Jwts;
-import io.jsonwebtoken.SignatureAlgorithm;
+import io.jsonwebtoken.*;
 import kr.co.printingworks.printdesk.dto.UserDto;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.PropertySource;
@@ -12,8 +11,8 @@ import java.util.Date;
 @Component
 @PropertySource("classpath:constants.yml")
 public class JwtTokenProvider {
-    private String secretKey;
-    private long validityInMilliseconds;
+    private final String secretKey;
+    private final long validityInMilliseconds;
 
     public JwtTokenProvider(
             @Value("${secret-key}") String secretKey,
@@ -31,10 +30,17 @@ public class JwtTokenProvider {
                 .claim("userName", userDto.getUserName())
                 .claim("email", userDto.getEmail())
                 .claim("name", userDto.getUpdateName())
-                .claim("companyId", userDto.getCompanyId())
+                .claim("companyId", userDto.getCompanyDto().getCompanyId())
                 .setIssuedAt(now)
                 .setExpiration(validity)
                 .signWith(SignatureAlgorithm.HS256, secretKey)
                 .compact();
+    }
+
+    public Claims getClaims(String jwt) {
+        return Jwts.parser()
+                .setSigningKey(secretKey)
+                .parseClaimsJws(jwt)
+                .getBody();
     }
 }

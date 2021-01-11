@@ -18,13 +18,13 @@ public class Department {
     private Long id;
     private String memo;
 
-    @Builder.Default
     @Column(nullable = false)
     private final Long version = 0L;
 
     private Integer sort;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ToString.Exclude
+    @ManyToOne
     @JoinColumn(name = "company_id")
     @JsonInclude(JsonInclude.Include.NON_EMPTY)
     private Company company;
@@ -32,6 +32,7 @@ public class Department {
     @Column(length = 50) private String code; // ?????????
     @Column(length = 50) private String name;
 
+    @ToString.Exclude
     @OneToMany(mappedBy = "department", fetch = FetchType.LAZY)
     @JsonInclude(JsonInclude.Include.NON_EMPTY)
     private List<Employee> employeeList;

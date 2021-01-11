@@ -8,5 +8,6 @@ import lombok.ToString;
 @Setter
 @ToString
 public class CompanyDto {
-    UserDto registerUser;
+    Long companyId;
+//    UserDto registerUser;
 }

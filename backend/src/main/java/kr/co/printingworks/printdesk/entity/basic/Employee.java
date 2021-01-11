@@ -23,12 +23,12 @@ public class Employee {
     private Long id;
     private String memo;
 
-    @Builder.Default
     @Column(nullable = false)
     private final Long version = 0L;
 
     private Integer sort;
 
+    @ToString.Exclude
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "company_id")
     @JsonInclude(JsonInclude.Include.NON_EMPTY)
@@ -44,11 +44,13 @@ public class Employee {
 
     @Column(length = 40) private String email;
 
+    @ToString.Exclude
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "position_id")
     @JsonInclude(JsonInclude.Include.NON_EMPTY)
     private Position position;
 
+    @ToString.Exclude
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "department_id")
     @JsonInclude(JsonInclude.Include.NON_EMPTY)
@@ -70,6 +72,7 @@ public class Employee {
     @LastModifiedDate
     private Date updateTime;
 
+    @ToString.Exclude
     @OneToOne(mappedBy = "employee")
     @JsonInclude(JsonInclude.Include.NON_EMPTY)
     private User user;

@@ -66,7 +66,7 @@ public class User {
     private Company companyOfRegisterUser;
 
     @ToString.Exclude
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne
     @JoinColumn(name = "company_id")
     @JsonInclude(JsonInclude.Include.NON_EMPTY)
     private Company company;

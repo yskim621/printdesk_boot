@@ -16,7 +16,7 @@ public class UserDto {
     private String userNo;
     private String mobile;
     private String email;
-    private Long companyId;
+    private CompanyDto companyDto;
     private String createName;
     private String updateName;
     private Date createTime;
