@@ -6,5 +6,7 @@ import java.util.List;
 
 public interface DepartmentService {
     List<DepartmentDto> getDepartmentList(String authorization);
-    void addDepartment(DepartmentDto departmentDto);
+    void addDepartment(String authorization, DepartmentDto departmentDto);
+    void updateDepartment(DepartmentDto departmentDto);
+    void deleteDepartment(DepartmentDto departmentDto);
 }

@@ -26,9 +26,25 @@ public class BasicController {
     }
 
     @ApiOperation(value = "add department")
-    @PostMapping("department/create")
-    public ResponseEntity<?> addDepartment(@RequestHeader String authorization, @RequestBody DepartmentDto departmentDto) {
-        departmentService.addDepartment(departmentDto);
+    @PostMapping("department/save")
+    public ResponseEntity<?> addDepartment(
+            @ApiIgnore @RequestHeader String authorization,
+            @RequestBody DepartmentDto departmentDto) {
+        departmentService.addDepartment(authorization, departmentDto);
+        return ResponseEntity.ok(null);
+    }
+
+    @ApiOperation(value = "update department")
+    @PutMapping("department/update")
+    public ResponseEntity<?> updateDepartment(@RequestBody DepartmentDto departmentDto) {
+        departmentService.updateDepartment(departmentDto);
+        return ResponseEntity.ok(null);
+    }
+
+    @ApiOperation(value = "delete department")
+    @DeleteMapping("department/delete")
+    public ResponseEntity<?> deleteDepartment(@RequestBody DepartmentDto departmentDto) {
+        departmentService.deleteDepartment(departmentDto);
         return ResponseEntity.ok(null);
     }
 }

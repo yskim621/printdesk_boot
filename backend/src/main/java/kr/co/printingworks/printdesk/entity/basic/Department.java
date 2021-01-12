@@ -14,7 +14,8 @@ import java.util.List;
 @ToString
 public class Department {
     @Id
-//    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.TABLE, generator = "TABLESEQ")
+    @TableGenerator(name = "TABLESEQ", table = "TABLE_SEQUENCES", allocationSize = 100, pkColumnName = "TABLENAME", valueColumnName = "COUNTSEQ")
     private Long id;
     private String memo;
 

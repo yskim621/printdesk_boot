@@ -13,4 +13,7 @@ public interface DepartmentMapper {
     @Mapping(source = "memo", target = "remark")
     @Mapping(expression = "java(CompanyMapper.INSTANCE.toDto(department.getCompany()))", target = "companyDto")
     DepartmentDto toDto(Department department);
+
+    @Mapping(source = "remark", target = "memo")
+    Department toEntity(DepartmentDto departmentDto);
 }
