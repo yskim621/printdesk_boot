@@ -7,6 +7,7 @@ import kr.co.printingworks.printdesk.service.basic.DepartmentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import springfox.documentation.annotations.ApiIgnore;
 
 import java.util.List;
 
@@ -18,16 +19,16 @@ public class BasicController {
     DepartmentService departmentService;
 
     @ApiOperation(value = "get department list")
-    @PostMapping("department/list")
-    public ResponseEntity<?> getDepartmentList(@RequestHeader String authorization) {
-        List<DepartmentDto> departmentList = departmentService.getDepartmentList(authorization);
-        return ResponseEntity.ok(departmentList);
+    @GetMapping("department/list")
+    public ResponseEntity<?> getDepartmentList(@ApiIgnore @RequestHeader String authorization) {
+        List<DepartmentDto> departmentDtoList = departmentService.getDepartmentList(authorization);
+        return ResponseEntity.ok(departmentDtoList);
     }
 
     @ApiOperation(value = "add department")
     @PostMapping("department/create")
     public ResponseEntity<?> addDepartment(@RequestHeader String authorization, @RequestBody DepartmentDto departmentDto) {
         departmentService.addDepartment(departmentDto);
-        return null;
+        return ResponseEntity.ok(null);
     }
 }
